@@ -13,40 +13,49 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/register',
     name: 'Register',
     component: Register,
+    meta: {
+      requiresAuth: false,
+    },
   },
   {
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/reminder',
     name: 'Reminder',
     component: Reminder,
+        meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/client',
     name: 'Client',
     component: Client,
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
@@ -55,5 +64,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+router.beforeEach((to, from, next) => {
 
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.state.auth.status.loggedIn) {
+      next({ name: 'Login' });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+
+});
 export default router;
