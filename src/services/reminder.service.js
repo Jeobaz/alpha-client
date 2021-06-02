@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://127.0.0.1:3333/api/';
+const API_URL = 'http://193.176.78.186/api/';
 
 class ReminderService {
   getAll() {
