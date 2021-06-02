@@ -93,8 +93,8 @@ export default {
   methods: {
     initialize() {
       this.getAllRecords();
-      this.reminders = this.allReminders;
-      this.getTodaysRecords();
+      this.reminders = this.allReminders ?? [];
+      if (this.reminders.length > 0) this.getTodaysRecords();
     },
     getAllRecords() {
       this.$store.dispatch('reminder/getAllRecords').then(
