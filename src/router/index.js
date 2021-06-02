@@ -6,6 +6,7 @@ import Register from '../views/Register.vue';
 import Profile from '../views/Profile.vue';
 import Reminder from '../views/Reminder.vue';
 import Client from '../views/Client.vue';
+import store from '../store/index.js';
 Vue.use(VueRouter);
 
 const routes = [
